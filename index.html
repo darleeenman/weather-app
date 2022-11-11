@@ -79,6 +79,19 @@ button:hover {
   display: block;
   margin: 0 auto;
 }
+ul {
+  position: relative;
+  right: -170px;
+  top: -70px;
+  line-height: 1;
+}
+li {
+  position: relative;
+  right: -45px;
+  top: -15px;
+  list-style: none;
+  display: list-item;
+}
 </style>
   </head>
 
@@ -117,6 +130,11 @@ button:hover {
        
 
             <p id="temperature-description">...</p>
+            
+            <ul>
+              <li id="humidity"></li>
+            <li id="wind"></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -291,6 +309,13 @@ function getWeather(response) {
 
   let description = document.querySelector("#temperature-description");
   description.innerHTML = response.data.weather[0].description;
+
+  let humidityElement = document.querySelector("#humidity");
+  humidityElement.innerHTML = response.data.main.humidity;
+
+  let windElement = document.querySelector("#wind");
+  windElement.innerHTML = Math.round(response.data.wind.speed);
+
 
   h3.innerHTML = city;
   currentTemp.innerHTML = temperature;
