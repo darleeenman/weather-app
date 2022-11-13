@@ -285,7 +285,7 @@ currentButton.addEventListener("click", handleCurrentLocation);
 
 let apiKey = "63dfb39dc38318c0c7e200e9557dfa6f";
 
-
+// lat + lon location
 function getLocation(position) {        
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
@@ -294,7 +294,7 @@ function getLocation(position) {
   axios.get(apiByLatLon).then(getWeather);
       }
 
-
+// main weather function
 function getWeather(response) {
   let temperature = Math.round(response.data.main.temp);
   let city = response.data.name
@@ -319,7 +319,7 @@ function getWeather(response) {
       }
 navigator.geolocation.getCurrentPosition(getLocation);
 
-
+// search city
 function searchCity(city) {
 let apiByCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 axios.get(apiByCity).then(getWeather);
@@ -331,6 +331,7 @@ console.log(city);
   searchCity(city);
 }
 
+// current location button
 function handleCurrentLocation(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(getLocation);
