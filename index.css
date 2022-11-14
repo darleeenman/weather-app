@@ -1,0 +1,89 @@
+body {
+  font-family: Helvetica;
+  display: block;
+  margin: 0 auto;
+  border-radius: inherit;
+  padding: 0 20px;
+  text-align: center;
+}
+form {
+  padding: 10px;
+}
+.mr-auto {
+  display: block;
+  margin: 0 auto;
+}
+.mr-auto .active {
+  color: black;
+  cursor: default;
+}
+.mr-auto .active:hover {
+  text-decoration: none;
+}
+.card-weather {
+  display: block;
+  margin: 0 auto;
+  padding: 50px 0px 50;
+  max-width: 500px;
+  background-color: lightblue;
+}
+
+.container-forecast {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+button {
+  color: #000;
+  background: #fff;
+  border: 1px solid lightblue;
+  border-radius: 10px;
+  transition: all 200ms ease;
+}
+button:hover {
+  color: #fff;
+  background: lightblue;
+}
+.card-weather .weekly-weather-item {
+  flex: 0 0 14.28%;
+  border-right: 1px solid lightblue;
+  padding: 1rem;
+  text-align: center;
+}
+.units a {
+  position: relative;
+  top: -34px;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.temperature {
+  font-size: 50px;
+}
+.search-form {
+  margin-bottom: -20px;
+}
+.current-button {
+  position: relative;
+  top: -24px;
+  left: -170px;
+  font-size: 15px;
+  padding: 8px;
+}
+.stretch-card {
+  display: block;
+  margin: 0 auto;
+}
+ul {
+  position: relative;
+  right: -170px;
+  top: -70px;
+  line-height: 1;
+}
+li {
+  position: relative;
+  right: -45px;
+  top: -15px;
+  list-style: none;
+  display: list-item;
+}
