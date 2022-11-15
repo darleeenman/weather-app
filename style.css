@@ -82,7 +82,7 @@ ul {
 }
 li {
   position: relative;
-  right: -45px;
+  right: 20px;
   top: -15px;
   list-style: none;
   display: list-item;
