@@ -25,7 +25,7 @@ form {
   display: block;
   margin: 0 auto;
   padding: 50px 0px 50;
-  max-width: 500px;
+  max-width: 100%;
   background-color: lightblue;
 }
 
