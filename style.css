@@ -5,6 +5,7 @@ body {
   border-radius: inherit;
   padding: 0 20px;
   text-align: center;
+  background-image: url("kumo.jpeg");
 }
 form {
   padding: 10px;
@@ -50,10 +51,11 @@ button:hover {
   padding: 1rem;
   text-align: center;
 }
-.units a {
+.units {
+  color: #000;
   position: relative;
   top: -34px;
-  font-size: 15px;
+  font-size: 20px;
   text-decoration: none;
 }
 
@@ -76,14 +78,19 @@ button:hover {
 }
 ul {
   position: relative;
-  right: -170px;
+  right: -200px;
   top: -70px;
   line-height: 1;
+  width: max-content;
 }
 li {
   position: relative;
-  right: 20px;
+  right: 30px;
   top: -15px;
   list-style: none;
   display: list-item;
+}
+.col-2 {
+  flex: 1;
+  width: 14%;
 }
