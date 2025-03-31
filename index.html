@@ -3,8 +3,7 @@
   <head>
     <title>Weather App ☀️</title>
     <meta charset="UTF-8" />
-          <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,67 +11,62 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css">
-<style>
-
-</style>
   </head>
 
   <body>
-    <!-- search form -->
-    <form class="search-form" id="search-form">
-      <input type="search" placeholder="Enter City" autofocus="on" autocomplete="off" id="city-input" />
-      <input type="submit" value="search"/>
-    </form>
-    
-    
-<!---current location button-->
-      <button class="current-button" id="current-button">Current</button>
-
-      <br />
+    <div class="container">
+      <div class="search-section">
+        <form class="search-form" id="search-form">
+          <input 
+            type="search" 
+            placeholder="Enter City" 
+            autofocus="on" 
+            autocomplete="off" 
+            id="city-input" 
+            class="form-control"
+          />
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <button class="current-button btn btn-secondary" id="current-button">Current Location</button>
+      </div>
       
-      <div class="col-lg-8 grid-margin stretch-card">
-    <!-- weather card -->
-    <div class="card card-weather">
-      <div class="card-body">
-        <div class="weather-date-location">
-          <h5 id="MonthDayYear">October 22, 2022</h5>
-          <p class="text-grey">
-            <p id="date"></p>
-            <br />
-            <h3 id="city">...</h3>
-          </p>
-        </div>
-        <div class="weather-data d-flex">
-          <div class="mr-auto">
-              <img id="icon" />
-            <span class="temperature" id="current-temp">...</span>
-              <span class="units">
-                <!-- <a href="#" id="celsius-link" class="active">°C</a> -->
-                °F</span>
-       
-
-            <p id="temperature-description">...</p>
-            <div class="col-6">
-            <ul>
-            <li>Humidity: <span id="humidity"></span>%</li>
-            <li>Wind: <span id="wind"></span>mph</li>
-            </ul>
+      <div class="weather-section">
+        <div class="card card-weather">
+          <div class="card-body">
+            <div class="weather-date-location">
+              <h5 id="MonthDayYear"></h5>
+              <p class="text-grey">
+                <span id="date"></span>
+                <br />
+                <h3 id="city">...</h3>
+              </p>
+            </div>
+            <div class="weather-data d-flex">
+              <div class="mr-auto">
+                <img id="icon" alt="weather icon" />
+                <span class="temperature" id="current-temp">...</span>
+                <span class="units">°F</span>
+                <p id="temperature-description" class="text-capitalize">...</p>
+                <div class="weather-details">
+                  <ul>
+                    <li>Humidity: <span id="humidity"></span>%</li>
+                    <li>Wind: <span id="wind"></span> mph</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
+          <div class="weather-forecast" id="forecast"></div>
         </div>
       </div>
-      <div class="weather-forecast" id="forecast"></div>
+
+      <footer>
+        <small>
+          <a href="https://github.com/darleeenman/GitHub-projects" target="_blank">Open-source code</a>, by Darleen Man
+        </small>
+      </footer>
     </div>
-     
-      </div>
-    </div>
-<small>
-  <a href="https://github.com/darleeenman/GitHub-projects" target="_blank">Open-source code</a>, by Darleen Man
-</small>
-<!-- weather card ends -->
 
-
-<script src="function.js">
-
-    </script>
+    <script src="function.js"></script>
   </body>
 </html>
