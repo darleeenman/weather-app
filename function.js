@@ -15,7 +15,7 @@ let currentTime = new Date();
 dateElement.innerHTML = formatDate(currentTime);
 
 // Get initial location
-navigator.geolocation.getCurrentPosition(getLocation);
+navigator.geolocation.getCurrentPosition(getLocation, showError);
 
 // Helper Functions
 function formatDate(timestamp) {
@@ -41,6 +41,13 @@ function formatDay(timestamp) {
   let days = ["Sun", "Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
   let day = date.getDay();
   return days[day];
+}
+
+function showError(error) {
+  console.error("Error getting location:", error);
+  alert(
+    "Error getting your location. Please try searching for a city instead."
+  );
 }
 
 // Weather Functions
@@ -77,8 +84,8 @@ function displayForecast(response) {
 }
 
 function getForecast(coordinates) {
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=imperial&appid=${apiKey}`;
-  axios.get(apiUrl).then(displayForecast);
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=imperial&appid=${apiKey}&exclude=minutely,hourly,alerts`;
+  axios.get(apiUrl).then(displayForecast).catch(showError);
 }
 
 function getWeather(response) {
@@ -115,7 +122,7 @@ function getWeather(response) {
 
 function searchCity(city) {
   let apiByCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
-  axios.get(apiByCity).then(getWeather);
+  axios.get(apiByCity).then(getWeather).catch(showError);
 }
 
 // Event Handlers
@@ -127,7 +134,7 @@ function handleSubmit(event) {
 
 function handleCurrentLocation(event) {
   event.preventDefault();
-  navigator.geolocation.getCurrentPosition(getLocation);
+  navigator.geolocation.getCurrentPosition(getLocation, showError);
 }
 
 function getLocation(position) {
@@ -135,7 +142,7 @@ function getLocation(position) {
   let lon = position.coords.longitude;
   let apiByLatLon = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
 
-  axios.get(apiByLatLon).then(getWeather);
+  axios.get(apiByLatLon).then(getWeather).catch(showError);
 }
 
 // fahrenheit temperature
