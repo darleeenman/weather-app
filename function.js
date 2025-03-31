@@ -4,8 +4,6 @@ const apiKey = "0d78d3d987e492a289265ccd0e1ddc36";
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("DOM Content Loaded");
-
   // Check for required elements
   const requiredElements = [
     "#search-form",
@@ -30,13 +28,11 @@ document.addEventListener("DOMContentLoaded", function () {
   let searchForm = document.querySelector("#search-form");
   if (searchForm) {
     searchForm.addEventListener("submit", handleSubmit);
-    console.log("Search form event listener added");
   }
 
   let currentButton = document.querySelector("#current-button");
   if (currentButton) {
     currentButton.addEventListener("click", handleCurrentLocation);
-    console.log("Current button event listener added");
   }
 
   // Initialize date
@@ -44,15 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (dateElement) {
     let currentTime = new Date();
     dateElement.innerHTML = formatDate(currentTime);
-    console.log("Date initialized");
   }
 
   // Get initial location
   if (navigator.geolocation) {
-    console.log("Geolocation is supported");
     navigator.geolocation.getCurrentPosition(getLocation, showError);
-  } else {
-    console.error("Geolocation is not supported by this browser");
   }
 });
 
@@ -83,31 +75,19 @@ function formatDay(timestamp) {
 }
 
 function showError(error) {
-  // Only log the error, don't show alerts
+  // Silent error handling
   console.error("Error details:", error);
-  if (error.code === 1) {
-    console.log("Location access denied by user");
-  } else if (error.code === 2) {
-    console.log("Location unavailable");
-  } else if (error.code === 3) {
-    console.log("Location request timed out");
-  } else {
-    console.log("Unknown error occurred");
-  }
 }
 
 // Weather Functions
 function displayForecast(response) {
-  console.log("Forecast response:", response);
   if (!response.data || !response.data.daily) {
-    console.error("Invalid forecast data:", response);
     return;
   }
 
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   if (!forecastElement) {
-    console.error("Forecast element not found");
     return;
   }
 
@@ -116,7 +96,6 @@ function displayForecast(response) {
     if (index < 7) {
       const iconCode = forecastDay.weather[0].icon;
       const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-      console.log("Setting forecast icon URL:", iconUrl);
 
       forecastHTML =
         forecastHTML +
@@ -144,38 +123,19 @@ function displayForecast(response) {
 }
 
 function getForecast(coordinates) {
-  console.log("Getting forecast for coordinates:", coordinates);
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=imperial&appid=${apiKey}&exclude=minutely,hourly,alerts`;
   axios
     .get(apiUrl)
     .then((response) => {
-      console.log("Forecast API Response:", response);
       displayForecast(response);
     })
     .catch((error) => {
       console.error("Forecast API error:", error);
-      if (error.response) {
-        console.error("Error response:", error.response.data);
-        if (error.response.status === 401) {
-          console.error(
-            "API key error. Please check your API key configuration."
-          );
-        } else {
-          console.error(
-            `Error: ${error.response.data.message || "Unknown error occurred"}`
-          );
-        }
-      } else {
-        showError(error);
-      }
     });
 }
 
 function getWeather(response) {
-  console.log("Processing weather data:", response);
-
   if (!response.data) {
-    console.error("No data in response");
     return;
   }
 
@@ -187,7 +147,6 @@ function getWeather(response) {
     let currentTemp = document.querySelector("#current-temp");
 
     if (!h3 || !currentTemp) {
-      console.error("Required elements not found for weather display");
       return;
     }
 
@@ -208,65 +167,36 @@ function getWeather(response) {
     if (iconElement) {
       const iconCode = response.data.weather[0].icon;
       const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-      console.log("Setting weather icon URL:", iconUrl);
       iconElement.setAttribute("src", iconUrl);
       iconElement.setAttribute("alt", response.data.weather[0].description);
-      iconElement.style.display = "block"; // Ensure the icon is visible
+      iconElement.style.display = "block";
     }
 
     h3.innerHTML = city;
     currentTemp.innerHTML = temperature;
 
-    console.log("Weather data processed successfully");
     getForecast(response.data.coord);
   } catch (error) {
     console.error("Error processing weather data:", error);
-    showError(error);
   }
 }
 
 function searchCity(city) {
-  console.log("Searching for city:", city);
   if (!city) {
-    console.log("Please enter a city name");
     return;
   }
 
   let apiByCity = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
     city
   )}&units=imperial&appid=${apiKey}`;
-  console.log("Making API request to:", apiByCity);
 
   axios
     .get(apiByCity)
     .then((response) => {
-      console.log("API Response received:", response);
       getWeather(response);
     })
     .catch((error) => {
       console.error("City search API error:", error);
-      if (error.response) {
-        console.error("Error response:", error.response.data);
-        if (error.response.status === 404) {
-          console.error("City not found. Please try another city name.");
-        } else if (error.response.status === 401) {
-          console.error(
-            "API key error. Please check your API key configuration."
-          );
-        } else {
-          console.error(
-            `Error: ${error.response.data.message || "Unknown error occurred"}`
-          );
-        }
-      } else if (error.request) {
-        console.error("No response received:", error.request);
-        console.error(
-          "No response received from the server. Please check your internet connection."
-        );
-      } else {
-        console.error("Error setting up request:", error.message);
-        console.error("Error setting up the request. Please try again.");
-      }
     });
 }
 
@@ -275,7 +205,6 @@ function handleSubmit(event) {
   event.preventDefault();
   let cityInputElement = document.querySelector("#city-input");
   if (!cityInputElement || !cityInputElement.value) {
-    console.log("Please enter a city name");
     return;
   }
   searchCity(cityInputElement.value);
@@ -287,7 +216,6 @@ function handleCurrentLocation(event) {
 }
 
 function getLocation(position) {
-  console.log("Got location:", position);
   let lat = position.coords.latitude;
   let lon = position.coords.longitude;
   let apiByLatLon = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
@@ -295,48 +223,20 @@ function getLocation(position) {
   axios
     .get(apiByLatLon)
     .then((response) => {
-      console.log("API Response:", response);
       getWeather(response);
     })
     .catch((error) => {
       console.error("Location weather API error:", error);
-      if (error.response) {
-        console.error("Error response:", error.response.data);
-        if (error.response.status === 401) {
-          console.error(
-            "API key error. Please check your API key configuration."
-          );
-        } else {
-          console.error(
-            `Error: ${error.response.data.message || "Unknown error occurred"}`
-          );
-        }
-      } else {
-        showError(error);
-      }
     });
 }
 
 // fahrenheit temperature
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
-  console.log(event);
   let temperatureElement = document.querySelector("#current-temp");
-
-  // celsiusLink.classList.remove("active");
-  // fahrenheitLink.classList.add("active");
   let fahrenheitTemperature = (temperature * 9) / 5 + 32;
   temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
-
-// // celsius temperature
-// function displayCelsiusTemperature(event) {
-//   event.preventDefault();
-//   celsiusLink.classList.add("active");
-//   fahrenheitLink.classList.remove("active");
-//   let temperatureElement = document.querySelector("#current-temp");
-//   temperatureElement.innerHTML = Math.round(temperature);
-// }
 
 // search
 function search(event) {
@@ -345,10 +245,3 @@ function search(event) {
   let cityInput = document.querySelector("#city-input");
   cityElement.innerHTML = cityInput.value;
 }
-
-// // click convert
-// let fahrenheitLink = document.querySelector("#fahrenheit-link");
-// fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-
-// // let celsiusLink = document.querySelector("#celsius-link");
-// // celsiusLink.addEventListener("click", displayCelsiusTemperature);
