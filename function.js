@@ -272,6 +272,10 @@ function searchCity(city) {
 function handleSubmit(event) {
   event.preventDefault();
   let cityInputElement = document.querySelector("#city-input");
+  if (!cityInputElement || !cityInputElement.value) {
+    alert("Please enter a city name");
+    return;
+  }
   searchCity(cityInputElement.value);
 }
 
