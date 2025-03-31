@@ -1,10 +1,13 @@
 // Global variables
 let temperature;
-const apiKey = "fda3688b1db05987dd5d07c237aecfba";
+const apiKey = "0d78d3d987e492a289265ccd0e1ddc36";
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM Content Loaded");
+
+  // Test API key
+  testApiKey();
 
   // Check for required elements
   const requiredElements = [
@@ -55,6 +58,37 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("Geolocation is not supported by this browser");
   }
 });
+
+// Test API key function
+function testApiKey() {
+  console.log("Testing API key...");
+  const testUrl = `https://api.openweathermap.org/data/2.5/weather?q=London&units=imperial&appid=${apiKey}`;
+
+  axios
+    .get(testUrl)
+    .then((response) => {
+      console.log("API key test successful:", response.data);
+    })
+    .catch((error) => {
+      console.error("API key test failed:", error);
+      if (error.response) {
+        console.error("Error response:", error.response.data);
+        if (error.response.status === 401) {
+          alert("API key is invalid or expired. Please check your API key.");
+        } else {
+          alert(
+            `API Error: ${
+              error.response.data.message || "Unknown error occurred"
+            }`
+          );
+        }
+      } else {
+        alert(
+          "Failed to connect to the weather service. Please check your internet connection."
+        );
+      }
+    });
+}
 
 // Helper Functions
 function formatDate(timestamp) {
