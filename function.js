@@ -117,11 +117,15 @@ function formatDay(timestamp) {
 }
 
 function showError(error) {
+  // Only show error if it's a real error, not just a geolocation permission denial
+  if (error.code === 1) {
+    console.log("Location access denied by user");
+    return;
+  }
+
   console.error("Error details:", error);
   let errorMessage = "An error occurred. ";
-  if (error.code === 1) {
-    errorMessage += "Location access denied. Please enable location services.";
-  } else if (error.code === 2) {
+  if (error.code === 2) {
     errorMessage +=
       "Location unavailable. Please try searching for a city instead.";
   } else if (error.code === 3) {
