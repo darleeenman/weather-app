@@ -85,7 +85,14 @@ function displayForecast(response) {
 
 function getForecast(coordinates) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&units=imperial&appid=${apiKey}&exclude=minutely,hourly,alerts`;
-  axios.get(apiUrl).then(displayForecast).catch(showError);
+  axios
+    .get(apiUrl, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+    .then(displayForecast)
+    .catch(showError);
 }
 
 function getWeather(response) {
@@ -122,7 +129,14 @@ function getWeather(response) {
 
 function searchCity(city) {
   let apiByCity = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
-  axios.get(apiByCity).then(getWeather).catch(showError);
+  axios
+    .get(apiByCity, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+    .then(getWeather)
+    .catch(showError);
 }
 
 // Event Handlers
@@ -142,7 +156,14 @@ function getLocation(position) {
   let lon = position.coords.longitude;
   let apiByLatLon = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${apiKey}`;
 
-  axios.get(apiByLatLon).then(getWeather).catch(showError);
+  axios
+    .get(apiByLatLon, {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    })
+    .then(getWeather)
+    .catch(showError);
 }
 
 // fahrenheit temperature
