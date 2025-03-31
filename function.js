@@ -100,20 +100,34 @@ function showError(error) {
 
 // Weather Functions
 function displayForecast(response) {
+  console.log("Forecast response:", response);
+  if (!response.data || !response.data.daily) {
+    console.error("Invalid forecast data:", response);
+    return;
+  }
+
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
+  if (!forecastElement) {
+    console.error("Forecast element not found");
+    return;
+  }
 
   let forecastHTML = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index < 7) {
+      const iconCode = forecastDay.weather[0].icon;
+      const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+      console.log("Setting forecast icon URL:", iconUrl);
+
       forecastHTML =
         forecastHTML +
         `
     <div class="col-2">
       <div class="weather-forecast-date">${formatDay(forecastDay.dt)}</div>
-      <img src="https://openweathermap.org/img/wn/${
-        forecastDay.weather[0].icon
-      }@2x.png" alt="" width="42" />
+      <img src="${iconUrl}" alt="${
+          forecastDay.weather[0].description
+        }" width="42" style="display: block;" />
       <div class="weather-forecast-temperatures">
         <span class="weather-forecast-temperature-max"> ${Math.round(
           forecastDay.temp.max
@@ -192,11 +206,12 @@ function getWeather(response) {
     if (dateElement)
       dateElement.innerHTML = formatDate(response.data.dt * 1000);
     if (iconElement) {
-      iconElement.setAttribute(
-        "src",
-        `https://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-      );
+      const iconCode = response.data.weather[0].icon;
+      const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+      console.log("Setting weather icon URL:", iconUrl);
+      iconElement.setAttribute("src", iconUrl);
       iconElement.setAttribute("alt", response.data.weather[0].description);
+      iconElement.style.display = "block"; // Ensure the icon is visible
     }
 
     h3.innerHTML = city;
