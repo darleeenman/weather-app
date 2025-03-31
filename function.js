@@ -157,9 +157,11 @@ function getForecast(coordinates) {
       if (error.response) {
         console.error("Error response:", error.response.data);
         if (error.response.status === 401) {
-          alert("API key error. Please check your API key configuration.");
+          console.error(
+            "API key error. Please check your API key configuration."
+          );
         } else {
-          alert(
+          console.error(
             `Error: ${error.response.data.message || "Unknown error occurred"}`
           );
         }
@@ -226,7 +228,7 @@ function getWeather(response) {
 function searchCity(city) {
   console.log("Searching for city:", city);
   if (!city) {
-    alert("Please enter a city name");
+    console.log("Please enter a city name");
     return;
   }
 
@@ -246,22 +248,24 @@ function searchCity(city) {
       if (error.response) {
         console.error("Error response:", error.response.data);
         if (error.response.status === 404) {
-          alert("City not found. Please try another city name.");
+          console.error("City not found. Please try another city name.");
         } else if (error.response.status === 401) {
-          alert("API key error. Please check your API key configuration.");
+          console.error(
+            "API key error. Please check your API key configuration."
+          );
         } else {
-          alert(
+          console.error(
             `Error: ${error.response.data.message || "Unknown error occurred"}`
           );
         }
       } else if (error.request) {
         console.error("No response received:", error.request);
-        alert(
+        console.error(
           "No response received from the server. Please check your internet connection."
         );
       } else {
         console.error("Error setting up request:", error.message);
-        alert("Error setting up the request. Please try again.");
+        console.error("Error setting up the request. Please try again.");
       }
     });
 }
@@ -271,7 +275,7 @@ function handleSubmit(event) {
   event.preventDefault();
   let cityInputElement = document.querySelector("#city-input");
   if (!cityInputElement || !cityInputElement.value) {
-    alert("Please enter a city name");
+    console.log("Please enter a city name");
     return;
   }
   searchCity(cityInputElement.value);
@@ -299,9 +303,11 @@ function getLocation(position) {
       if (error.response) {
         console.error("Error response:", error.response.data);
         if (error.response.status === 401) {
-          alert("API key error. Please check your API key configuration.");
+          console.error(
+            "API key error. Please check your API key configuration."
+          );
         } else {
-          alert(
+          console.error(
             `Error: ${error.response.data.message || "Unknown error occurred"}`
           );
         }
