@@ -83,23 +83,17 @@ function formatDay(timestamp) {
 }
 
 function showError(error) {
-  // Only show error if it's a real error, not just a geolocation permission denial
+  // Only log the error, don't show alerts
+  console.error("Error details:", error);
   if (error.code === 1) {
     console.log("Location access denied by user");
-    return;
-  }
-
-  console.error("Error details:", error);
-  let errorMessage = "An error occurred. ";
-  if (error.code === 2) {
-    errorMessage +=
-      "Location unavailable. Please try searching for a city instead.";
+  } else if (error.code === 2) {
+    console.log("Location unavailable");
   } else if (error.code === 3) {
-    errorMessage += "Location request timed out. Please try again.";
+    console.log("Location request timed out");
   } else {
-    errorMessage += "Please try searching for a city instead.";
+    console.log("Unknown error occurred");
   }
-  alert(errorMessage);
 }
 
 // Weather Functions
