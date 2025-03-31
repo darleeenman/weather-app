@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather App ☀️</title>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css">
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="search-section">
+        <form class="search-form" id="search-form">
+          <input 
+            type="search" 
+            placeholder="Enter City" 
+            autofocus="on" 
+            autocomplete="off" 
+            id="city-input" 
+            class="form-control"
+          />
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <button class="current-button btn btn-secondary" id="current-button">Current Location</button>
+      </div>
+      
+      <div class="weather-section">
+        <div class="card card-weather">
+          <div class="card-body">
+            <div class="weather-date-location">
+              <h5 id="MonthDayYear"></h5>
+              <p class="text-grey">
+                <span id="date"></span>
+                <br />
+                <h3 id="city">...</h3>
+              </p>
+            </div>
+            <div class="weather-data d-flex">
+              <div class="mr-auto">
+                <img id="icon" alt="weather icon" />
+                <span class="temperature" id="current-temp">...</span>
+                <span class="units">°F</span>
+                <p id="temperature-description" class="text-capitalize">...</p>
+                <div class="weather-details">
+                  <ul>
+                    <li>Humidity: <span id="humidity"></span>%</li>
+                    <li>Wind: <span id="wind"></span> mph</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="weather-forecast" id="forecast"></div>
+        </div>
+      </div>
+
+      <footer>
+        <small>
+          <a href="https://github.com/darleeenman/GitHub-projects" target="_blank">Open-source code</a>, by Darleen Man
+        </small>
+      </footer>
+    </div>
+
+    <script src="function.js"></script>
+  </body>
+</html>
